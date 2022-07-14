@@ -8,7 +8,7 @@ import { ConfigService } from '@nestjs/config';
 export class AuthService {
   constructor(private jwt: JwtService, private config: ConfigService) {}
   async login(dto: AuthDto) {
-    //temp user for testing purposes
+    //temp users for testing purposes
     const user = {
       email: 'joedoe@gmail.com',
       password: '123',
