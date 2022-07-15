@@ -1,5 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+import { List } from '../../lists/schemas/list.schema';
 
 export type UserDocument = User & Document;
 
@@ -18,8 +19,8 @@ export class User {
   @Prop({ default: false })
   active: boolean;
 
-  // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'List' }] })
-  // lists: List[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'List' }] })
+  lists: List[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
