@@ -4,7 +4,6 @@ import { UserModule } from './users/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ListsModule } from './lists/lists.module';
-import { AlbumsModule } from './albums/albums.module';
 
 @Module({
   imports: [
@@ -18,7 +17,6 @@ import { AlbumsModule } from './albums/albums.module';
       }),
     }),
     ListsModule,
-    AlbumsModule,
   ],
   controllers: [],
   providers: [],
