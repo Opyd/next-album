@@ -1,4 +1,20 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateListDto } from './create-list.dto';
+import { IsArray, IsBoolean, IsOptional, IsString } from 'class-validator';
+import { Album } from '../schemas/list.schema';
 
-export class UpdateListDto extends PartialType(CreateListDto) {}
+export class UpdateListDto {
+  @IsOptional()
+  @IsString()
+  name: string;
+
+  @IsOptional()
+  @IsArray()
+  tags: [string];
+
+  @IsOptional()
+  @IsBoolean()
+  finished: boolean;
+
+  @IsOptional()
+  @IsArray()
+  albums: [Album];
+}
