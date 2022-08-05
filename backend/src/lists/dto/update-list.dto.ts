@@ -1,4 +1,10 @@
-import { IsArray, IsBoolean, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsMongoId,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Album } from '../schemas/list.schema';
 
 export class UpdateListDto {
@@ -16,5 +22,6 @@ export class UpdateListDto {
 
   @IsOptional()
   @IsArray()
-  albums: [Album];
+  @IsString({ each: true })
+  albums: [string];
 }

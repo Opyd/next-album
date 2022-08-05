@@ -33,8 +33,8 @@ export class List {
   @Prop([String])
   tags: string[];
 
-  @Prop([Album])
-  albums: Album[];
+  @Prop([String])
+  albums: string[];
 }
 
 export const ListSchema = SchemaFactory.createForClass(List);
