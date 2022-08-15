@@ -38,10 +38,11 @@ export class AuthService {
         email: dto.email,
         hash: hash,
       });
-      const token = await this.signToken(user._id.toString(), user.email);
+      // const token = await this.signToken(user._id.toString(), user.email);
       return {
-        access_token: token,
-        name: user.name,
+        // access_token: token,
+        // name: user.name,
+        message: 'Account successfully created',
       };
     } catch (error) {
       if (error.code === 11000) {

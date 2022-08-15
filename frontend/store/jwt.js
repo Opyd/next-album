@@ -1,10 +1,4 @@
-import createPersistedState from 'vuex-persistedstate'
-
-export const plugins = [
-  createPersistedState({
-    storage: window.sessionStorage,
-  }),
-]
+export const plugins = []
 
 export const state = () => ({
   token: '',
@@ -17,6 +11,9 @@ export const getters = {
   },
   getLogin(state) {
     return state.login
+  },
+  isLogged(state) {
+    return !!state.token
   },
 }
 
