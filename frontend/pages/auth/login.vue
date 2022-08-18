@@ -78,7 +78,7 @@
                 type="submit"
                 :disabled="success || error"
                 :style="success || error ? { backgroundColor: 'grey' } : ''"
-                class="py-2 px-4 bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+                class="py-2 px-4 bg-green-500 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
               >
                 Log in
               </button>
@@ -91,9 +91,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import axios from 'axios'
-
 export default {
   name: 'LoginPage',
   data() {
@@ -107,42 +104,29 @@ export default {
     }
   },
   mounted() {
-    this.isLogged = this.$store.getters['jwt/isLogged']
+    // this.isLogged = this.$auth.loggedIn
   },
   methods: {
-    ...mapMutations(['jwt/setToken', 'jwt/setLogin']),
     async logIn() {
-      const options = {
-        url: 'http://localhost:3100/auth/signin',
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8',
-        },
-        data: {
-          email: this.email,
-          password: this.password,
-        },
-      }
       try {
-        const response = await axios(options)
-        if (response.status === 201) {
-          this.success = true
-          // eslint-disable-next-line camelcase
-          const { access_token, name } = response.data
-          this.$store.commit('jwt/setLogin', name)
-          this.$store.commit('jwt/setToken', access_token)
-          setTimeout(() => {
-            this.$router.push({
-              path: '/',
-            })
-          }, 3000)
-        }
-      } catch (e) {
-        console.log(e)
+        const response = await this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+        })
+        console.log(response)
+        this.success = true
+        setTimeout(() => {
+          this.$router.push({
+            path: '/',
+          })
+        }, 3000)
+      } catch (err) {
+        console.log(err)
         this.error = true
         this.reset()
-        setTimeout(() => window.location.reload(), 1000)
+        setTimeout(() => window.location.reload(), 2000)
       }
     },
     reset() {

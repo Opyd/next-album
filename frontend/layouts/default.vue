@@ -1,5 +1,8 @@
 <template>
-  <Nuxt />
+  <div>
+    <NavBar />
+    <Nuxt />
+  </div>
 </template>
 
 <script>
@@ -9,6 +12,9 @@ export default {
 </script>
 
 <style lang="scss">
+html {
+  font-family: 'Poppins', sans-serif;
+}
 body {
   background-color: #082032;
 }
