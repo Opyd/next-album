@@ -21,11 +21,24 @@ export class ListsService {
 
   async findAll(authorId: string) {
     const list = await this.listModel.findOne({ author: authorId }).exec();
-    return list;
+    if (!list) {
+      return {
+        data: 'No lists',
+      };
+    } else {
+      return list;
+    }
   }
 
   findOne(id: string, authorId: string) {
-    return this.listModel.findOne({ _id: id, author: authorId });
+    const list = this.listModel.findOne({ _id: id, author: authorId });
+    if (!list) {
+      return {
+        data: 'No list',
+      };
+    } else {
+      return list;
+    }
   }
 
   update(id: string, updateListDto: UpdateListDto) {

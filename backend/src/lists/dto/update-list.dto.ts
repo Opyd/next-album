@@ -5,7 +5,6 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Album } from '../schemas/list.schema';
 
 export class UpdateListDto {
   @IsOptional()

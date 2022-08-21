@@ -79,6 +79,17 @@
                 />
               </div>
             </div>
+            <span
+              v-if="!arePasswordsSame"
+              class="text-red-500 text-sm italic align-text-top"
+            >
+              <font-awesome-icon icon="fa-solid fa-x" />
+              Passwords must be the same!</span
+            >
+            <span v-else class="text-green-500 text-sm italic align-text-top">
+              <font-awesome-icon icon="fa-solid fa-check-double" /> Passwords
+              match
+            </span>
             <div class="flex flex-col mb-2">
               <div class="relative">
                 <input
@@ -95,8 +106,12 @@
             <div class="flex w-full my-4">
               <button
                 type="submit"
-                :disabled="success || error"
-                :style="success || error ? { backgroundColor: 'grey' } : ''"
+                :disabled="success || error || !arePasswordsSame"
+                :style="
+                  success || error || !arePasswordsSame
+                    ? { backgroundColor: 'grey' }
+                    : ''
+                "
                 class="py-2 px-4 bg-green-500 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
               >
                 Register
@@ -140,6 +155,8 @@ export default {
   methods: {
     // ...mapMutations(['jwt/setToken', 'jwt/setLogin']),
     async register() {
+      if (!this.arePasswordsSame) {
+      }
       const options = {
         url: 'http://localhost:3100/auth/signup',
         method: 'POST',
