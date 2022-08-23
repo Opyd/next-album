@@ -6,8 +6,10 @@
 </template>
 
 <script>
+import NavBar from "~/components/utils/NavBar";
 export default {
   name: 'DefaultTemplate',
+  components: {NavBar},
 }
 </script>
 

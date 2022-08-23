@@ -1,21 +1,21 @@
 <template>
   <div class="flex justify-center align-middle mt-16">
-    <Popup
+    <PopupModal
       v-if="success"
       text="User has been created!"
       destination="Go to Login page"
       path="/auth/login"
       icon-name="fa-solid fa-check"
       icon-color="green"
-    ></Popup>
-    <Popup
+    ></PopupModal>
+    <PopupModal
       v-if="error"
       text="Credentials are already taken!"
       destination="Go to Login page"
       path="/auth/login"
       icon-name="fa-solid fa-exclamation"
       icon-color="red"
-    ></Popup>
+    ></PopupModal>
     <div :class="success || error ? 'blur-bg' : 'unblur-bg'">
       <div
         class="flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10"
@@ -127,7 +127,8 @@
 <script>
 import axios from 'axios'
 // import { mapMutations } from 'vuex'
-import Popup from '@/components/Popup'
+import PopupModal from "~/components/utils/Popup";
+
 export default {
   name: 'RegisterPage',
   components: [Popup],

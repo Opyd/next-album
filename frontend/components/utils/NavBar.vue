@@ -37,7 +37,7 @@
               class="text-gray-600 pl-2"
             />
             <nuxt-link
-              to="/lists"
+              to="/list"
               class="py-4 px-1 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
               >Lists</nuxt-link
             >

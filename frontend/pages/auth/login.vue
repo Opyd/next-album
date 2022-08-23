@@ -8,22 +8,22 @@
         >Go to Home page
       </nuxt-link>
     </div>
-    <Popup
+    <PopupModal
       v-if="success"
       text="Successfully logged in!"
       destination="Redirecting to Home page..."
       path="/"
       icon-name="fa-solid fa-door-open"
       icon-color="green"
-    ></Popup>
-    <Popup
+    ></PopupModal>
+    <PopupModal
       v-if="error"
       text="Wrong credentials!"
       destination="Try again"
       path="/auth/login"
       icon-name="fa-solid fa-door-closed"
       icon-color="red"
-    ></Popup>
+    ></PopupModal>
     <div v-if="!isLogged" :class="success || error ? 'blur-bg' : 'unblur-bg'">
       <div
         class="flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10"
@@ -91,8 +91,10 @@
 </template>
 
 <script>
+import PopupModal from "~/components/utils/Popup";
 export default {
   name: 'LoginPage',
+  components: {PopupModal},
   data() {
     return {
       email: '',

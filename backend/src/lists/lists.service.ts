@@ -20,7 +20,7 @@ export class ListsService {
   }
 
   async findAll(authorId: string) {
-    const list = await this.listModel.findOne({ author: authorId }).exec();
+    const list = await this.listModel.find({ author: authorId }).exec();
     if (!list) {
       return {
         data: 'No lists',

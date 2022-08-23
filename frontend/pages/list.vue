@@ -1,49 +1,63 @@
 <template>
-  <div>
-    <div v-if="lists.length === 0" class="flex">
+  <div v-if="lists.length === 0">
+    <loading-indicator />
+  </div>
+  <div v-else>
+    <div v-if="reqFinished && lists.length === 0" class="flex">
       <span class="text-white text-lg mx-auto pt-10">
         There is nothing to show!
       </span>
     </div>
     <div
-      v-for="(list, index) in lists"
-      v-else
-      :key="list._id"
-      class="flex mt-5 flex-wrap justify-center"
+      v-if="reqFinished && lists.length !== 0"
+      class="flex flex-wrap justify-center"
     >
-      <ListShort :list="list"></ListShort>
-      <ListShort :list="list"></ListShort>
+      <ListShort v-for="list in lists" :key="list._id" :list="list"></ListShort>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import ListShort from '@/components/lists/ListShort'
+import LoadingIndicator from '@/components/utils/loading'
 export default {
   name: 'ListPage',
+  components: { LoadingIndicator, ListShort },
   data() {
     return {
-      lists: [
-        {
-          author: '62fa661a67df5a1d6d499915',
-          name: 'Lista test',
-          finished: false,
-          tags: ['rap', 'bored'],
-          albums: [
-            {
-              _id: 'dupa001001',
-              mbid: 'cb453955-e748-31c2-91e6-db01681886a5',
-              finished: false,
-            },
-          ],
-          _id: '63026cc1907dd48ab414bf13',
-          createdAt: '2022-08-21T17:34:57.080Z',
-          updatedAt: '2022-08-21T17:34:57.080Z',
-          __v: 0,
-        },
-      ],
+      lists: [],
+      reqFinished: false,
     }
+  },
+  mounted() {
+    this.getUsersLists()
+  },
+  methods: {
+    async getUsersLists() {
+      try {
+        const response = await axios.get('http://localhost:3100/v1/lists', {
+          headers: {
+            Authorization: `${this.$auth.strategy.token.get()}`,
+          },
+        })
+        this.lists = response.data
+        console.log(response.data)
+        this.reqFinished = true
+      } catch (e) {
+        console.log(e)
+      }
+    },
   },
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>
