@@ -18,7 +18,9 @@
               type="button"
               class="py-2 px-4 bg-green-500 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
             >
-              <nuxt-link :to="path">{{ destination }}</nuxt-link>
+              <nuxt-link :to="path" @click.native="reloadPage">{{
+                destination
+              }}</nuxt-link>
             </button>
           </div>
         </div>
@@ -36,6 +38,14 @@ export default {
     path: String,
     iconName: String,
     iconColor: String,
+    reload: Boolean,
+  },
+  methods: {
+    reloadPage() {
+      if (this.reload) {
+        window.location.reload()
+      }
+    },
   },
 }
 </script>
