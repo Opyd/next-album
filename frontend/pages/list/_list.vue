@@ -1,16 +1,58 @@
 <template>
-  <div class="flex w-full justify-center m-5">
-    <div class="flex bg-white overflow-hidden w-4/5 flex-wrap">
-      <div class="flex flex-wrap border-2 md:w-1/3 sm:w-full">
+  <div class="flex justify-center m-5">
+    <div class="flex w-4/5 flex-wrap shadow-2xl">
+      <div class="flex bg-white rounded-md flex-wrap md:w-1/3 sm:w-full">
         <div class="w-full flex justify-center items-center p-2">
           <font-awesome-icon icon="fa-solid fa-list" class="text-4xl" />
         </div>
         <div class="w-full flex justify-center items-center border-t-2 p-2">
-          <p>{{ list.name }}</p>
+          <p class="text-2xl">{{ list.name }}</p>
+        </div>
+        <div class="w-full flex flex-wrap mt-1 justify-center items-center">
+          <span
+            v-for="tag in list.tags"
+            :key="tag"
+            class="text-sm border-2 border-pink-100 rounded px-2"
+            >{{ tag }}</span
+          >
+        </div>
+        <div class="w-full flex flex-wrap mt-1 justify-center items-center">
+          <span class="italic text-gray-500 text-sm">Created</span>
+        </div>
+        <div class="w-full flex flex-wrap mt-1 justify-center items-center">
+          <span>{{ createdAt }}</span>
+        </div>
+        <div class="w-full flex flex-wrap mt-1 justify-center items-center">
+          <span class="italic text-gray-500 text-sm">Updated</span>
+        </div>
+        <div class="w-full flex flex-wrap mt-1 justify-center items-center">
+          <span>{{ updatedAt }}</span>
         </div>
       </div>
-      <div class="flex flex-wrap border-2 md:w-2/3 sm:w-full">
-        <p v-for="album in list.albums" class="w-full">{{ album }}</p>
+      <div
+        class="flex flex-wrap pl-5 text-white md:w-2/3 sm:w-full overflow-auto max-h-96"
+      >
+        <div class="flex w-full justify-center border-b italic">
+          <div class="w-1/4 flex items-center justify-center">
+            <font-awesome-icon icon="fa-solid fa-image" />
+          </div>
+          <div class="w-1/4 flex items-center">
+            <p>Author</p>
+          </div>
+          <div class="w-1/4 flex items-center">
+            <p>Title</p>
+          </div>
+          <div class="w-1/4 flex items-center">
+            <p>Release Date</p>
+          </div>
+        </div>
+        <AlbumRow
+          v-for="album in albumDetails"
+          :author="album['artist-credit'][0]['artist']['name']"
+          :title="album.title"
+          :release-date="album.date"
+          :img="album.img"
+        ></AlbumRow>
       </div>
     </div>
   </div>
@@ -18,16 +60,28 @@
 
 <script>
 import axios from 'axios'
+import AlbumRow from '~/components/lists/AlbumRow'
+
 export default {
   name: 'OneListPage',
+  components: { AlbumRow },
   middleware: 'logged',
   data() {
     return {
-      list: null,
+      list: {},
+      albumDetails: [],
     }
   },
-  async created() {
-    await this.getList()
+  computed: {
+    createdAt() {
+      return new Date(this.list.createdAt).toDateString()
+    },
+    updatedAt() {
+      return new Date(this.list.updatedAt).toDateString()
+    },
+  },
+  created() {
+    this.getList()
   },
   methods: {
     async getList() {
@@ -41,9 +95,35 @@ export default {
           }
         )
         this.list = res.data
+
+        this.loadAllAlbums()
       } catch (e) {
         console.log(e)
       }
+    },
+    async getAlbumData(mbid) {
+      try {
+        const res = await axios.get(
+          `https://musicbrainz.org/ws/2/release/${mbid}?inc=artist-credits`,
+          {
+            headers: {
+              Accept: 'application/json',
+            },
+          }
+        )
+        const data = res.data
+        data.img = `https://coverartarchive.org/release/${mbid}/front-250`
+        this.albumDetails.push(data)
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    loadAllAlbums() {
+      this.list.albums.forEach((mbid, i) => {
+        setTimeout(async () => {
+          await this.getAlbumData(mbid)
+        }, i * 1500)
+      })
     },
   },
 }
