@@ -30,7 +30,8 @@
         </div>
       </div>
       <div
-        class="flex flex-wrap md:pl-5 text-white md:w-2/3 sm:w-full overflow-auto h-128 max-h-128"
+        class="flex-wrap md:pl-5 text-white md:w-2/3 sm:w-full overflow-auto h-128 max-h-128"
+        style="display: flex; align-content: flex-start"
       >
         <div class="flex w-full h-10 justify-center border-b italic mb-1">
           <div class="w-1/4 flex items-center justify-center">
@@ -39,13 +40,13 @@
           <div class="w-1/5 flex items-center">
             <p>Author</p>
           </div>
-          <div class="w-1/5 flex items-center">
+          <div class="w-1/5 flex items-center justify-center">
             <p>Title</p>
           </div>
-          <div class="w-1/5 flex items-center">
+          <div class="w-1/5 flex items-center justify-center">
             <p>Release Date</p>
           </div>
-          <div class="w-1/5 flex justify-center">
+          <div class="w-1/5 flex items-center justify-center">
             <p>More</p>
           </div>
         </div>
@@ -59,6 +60,7 @@
           :img="album.img"
           @delAlbum="delAlbum"
         ></AlbumRow>
+
         <div v-if="albumDetails.length === 0" class="mx-auto">
           Nothing here!
         </div>
@@ -86,6 +88,16 @@ export default {
     },
     updatedAt() {
       return new Date(this.list.updatedAt).toDateString()
+    },
+  },
+  watch: {
+    albumDetails() {
+      const toastid = this.$toast.info(
+        `Loading ${this.list.albums.length} albums from musicbrainz...`
+      )
+      if (this.list.albums.length === this.albumDetails.length) {
+        this.$toast.update(toastid, { content: 'All loaded' })
+      }
     },
   },
   created() {

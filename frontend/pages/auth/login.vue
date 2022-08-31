@@ -8,23 +8,7 @@
         >Go to Home page
       </nuxt-link>
     </div>
-    <PopupModal
-      v-if="success"
-      text="Successfully logged in!"
-      destination="Redirecting to Home page..."
-      path="/"
-      icon-name="fa-solid fa-door-open"
-      icon-color="green"
-    ></PopupModal>
-    <PopupModal
-      v-if="error"
-      text="Wrong credentials!"
-      destination="Try again"
-      path="/auth/login"
-      icon-name="fa-solid fa-door-closed"
-      icon-color="red"
-    ></PopupModal>
-    <div v-if="!isLogged" :class="success || error ? 'blur-bg' : 'unblur-bg'">
+    <div v-if="!isLogged">
       <div
         class="flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10"
       >
@@ -91,10 +75,10 @@
 </template>
 
 <script>
-import PopupModal from "~/components/utils/Popup";
+import PopupModal from '~/components/utils/Popup'
 export default {
   name: 'LoginPage',
-  components: {PopupModal},
+  components: {},
   data() {
     return {
       email: '',
@@ -119,16 +103,16 @@ export default {
         })
         console.log(response)
         this.success = true
+        this.$toast.success('Welcome back!')
         setTimeout(() => {
           this.$router.push({
-            path: '/',
+            path: '/list',
           })
         }, 1000)
       } catch (err) {
         console.log(err)
-        this.error = true
+        this.$toast.error('Bad credentials')
         this.reset()
-        setTimeout(() => window.location.reload(), 2000)
       }
     },
     reset() {

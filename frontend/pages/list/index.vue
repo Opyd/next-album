@@ -80,13 +80,14 @@ export default {
     },
     addToListArray(value) {
       this.lists.push(value)
+      this.$toast.success('Created new list!')
     },
     hideModal(value) {
       this.showAddListModal = value
     },
     removeList(val) {
-      console.log(val)
       this.lists = this.lists.filter((e) => e._id !== val)
+      this.$toast.success('Successfully deleted list')
     },
   },
 }

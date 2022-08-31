@@ -1,27 +1,6 @@
 <template>
   <form class="flex justify-center align-middle" @submit.prevent="createList">
-    <PopupModal
-      v-if="error"
-      :text="errorMsg"
-      class="top-32"
-      destination="Something went wrong"
-      path="/list"
-      reload
-      icon-name="fa-solid fa-xmark"
-      icon-color="red"
-    ></PopupModal>
-    <PopupModal
-      v-if="success"
-      text="Successfully created!"
-      class="top-32"
-      destination="Back to lists"
-      path="/list"
-      reload
-      icon-name="fa-solid fa-check"
-      icon-color="green"
-    ></PopupModal>
     <div
-      v-if="!error && !success"
       class="container bg-white z-50 p-1 flex-wrap rounded-md m-3 md:w-1/2 sm:w-1/2 flex"
     >
       <div class="w-full p-1 flex justify-end">
@@ -82,7 +61,7 @@ import axios from 'axios'
 import PopupModal from '~/components/utils/Popup'
 export default {
   name: 'AddListModal',
-  components: { PopupModal },
+  components: {},
   data() {
     return {
       title: '',
@@ -125,6 +104,7 @@ export default {
         console.log(e)
         this.errorMsg = e
         window.location.reload()
+        this.$toast.error('Something went wrong')
       }
     },
   },
