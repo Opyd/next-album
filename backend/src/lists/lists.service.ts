@@ -50,4 +50,16 @@ export class ListsService {
   remove(id: string) {
     return this.listModel.findOneAndRemove({ _id: id });
   }
+
+  removeAlbum(id: string, albumId: string) {
+    return this.listModel.findByIdAndUpdate(
+      id,
+      {
+        $pull: {
+          albums: albumId,
+        },
+      },
+      { new: true },
+    );
+  }
 }

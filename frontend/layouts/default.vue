@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import NavBar from "~/components/utils/NavBar";
+import NavBar from '~/components/utils/NavBar'
 export default {
   name: 'DefaultTemplate',
-  components: {NavBar},
+  components: { NavBar },
 }
 </script>
 

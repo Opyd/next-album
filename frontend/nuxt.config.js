@@ -21,7 +21,10 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    'vue-toastification/dist/index.css',
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [{ src: '~/plugins/fontawesome.js', ssr: true }],
@@ -43,6 +46,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/auth-next',
+    'vue-toastification/nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -68,7 +72,10 @@ export default {
           // autoFetch: true
         },
         endpoints: {
-          login: { url: 'http://localhost:3100/v1/auth/signin', method: 'post' },
+          login: {
+            url: 'http://localhost:3100/v1/auth/signin',
+            method: 'post',
+          },
           logout: false,
           user: { url: 'http://localhost:3100/v1/users', method: 'get' },
         },

@@ -66,4 +66,22 @@ export class ListsController {
     }
     return this.listsService.remove(id);
   }
+
+  @UseGuards(JwtGuard)
+  @Delete(':id/:albumId')
+  async removeAlbum(
+    @Param('id') id: string,
+    @Param('albumId') albumId: string,
+    @Req() req: Request,
+  ) {
+    const list = await this.listsService.findOne(id, req.user['_id']);
+
+    if (!list) {
+      throw new HttpException('BAD REQUEST', HttpStatus.BAD_REQUEST);
+    }
+    if (!list['albums'].includes(albumId)) {
+      throw new HttpException('BAD REQUEST', HttpStatus.BAD_REQUEST);
+    }
+    return this.listsService.removeAlbum(id, albumId);
+  }
 }

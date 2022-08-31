@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center m-5">
-    <div class="flex w-4/5 flex-wrap shadow-2xl">
+    <div class="flex md:w-4/5 flex-wrap shadow-2xl sm:w-full">
       <div class="flex bg-white rounded-md flex-wrap md:w-1/3 sm:w-full">
         <div class="w-full flex justify-center items-center p-2">
           <font-awesome-icon icon="fa-solid fa-list" class="text-4xl" />
@@ -30,29 +30,38 @@
         </div>
       </div>
       <div
-        class="flex flex-wrap pl-5 text-white md:w-2/3 sm:w-full overflow-auto max-h-96"
+        class="flex flex-wrap md:pl-5 text-white md:w-2/3 sm:w-full overflow-auto h-128 max-h-128"
       >
-        <div class="flex w-full justify-center border-b italic">
+        <div class="flex w-full h-10 justify-center border-b italic mb-1">
           <div class="w-1/4 flex items-center justify-center">
             <font-awesome-icon icon="fa-solid fa-image" />
           </div>
-          <div class="w-1/4 flex items-center">
+          <div class="w-1/5 flex items-center">
             <p>Author</p>
           </div>
-          <div class="w-1/4 flex items-center">
+          <div class="w-1/5 flex items-center">
             <p>Title</p>
           </div>
-          <div class="w-1/4 flex items-center">
+          <div class="w-1/5 flex items-center">
             <p>Release Date</p>
+          </div>
+          <div class="w-1/5 flex justify-center">
+            <p>More</p>
           </div>
         </div>
         <AlbumRow
           v-for="album in albumDetails"
+          :id="album.id"
+          :key="album.id"
           :author="album['artist-credit'][0]['artist']['name']"
           :title="album.title"
           :release-date="album.date"
           :img="album.img"
+          @delAlbum="delAlbum"
         ></AlbumRow>
+        <div v-if="albumDetails.length === 0" class="mx-auto">
+          Nothing here!
+        </div>
       </div>
     </div>
   </div>
@@ -61,7 +70,6 @@
 <script>
 import axios from 'axios'
 import AlbumRow from '~/components/lists/AlbumRow'
-
 export default {
   name: 'OneListPage',
   components: { AlbumRow },
@@ -124,6 +132,27 @@ export default {
           await this.getAlbumData(mbid)
         }, i * 1500)
       })
+    },
+    async delAlbum(value) {
+      try {
+        const res = await axios.delete(
+          `http://localhost:3100/v1/lists/${this.list._id}/${value}`,
+          {
+            headers: {
+              Accept: 'application/json',
+              Authorization: `${this.$auth.strategy.token.get()}`,
+            },
+          }
+        )
+        if (res.status === 200) {
+          this.albumDetails = this.albumDetails.filter(
+            (val) => val.id !== value
+          )
+          this.$toast.success('Sucessfully deleted!')
+        }
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }
