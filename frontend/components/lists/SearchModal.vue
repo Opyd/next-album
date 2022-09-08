@@ -43,7 +43,7 @@
 
 <script>
 import axios from 'axios'
-import ResultRow from '~/components/lists/resultrow'
+import ResultRow from '~/components/lists/ResultRow'
 export default {
   name: 'SearchModal',
   components: { ResultRow },

@@ -100,8 +100,8 @@
 
 <script>
 import axios from 'axios'
-import AlbumRow from '~/components/lists/albumrow'
-import SearchModal from '~/components/lists/searchmodal'
+import AlbumRow from '~/components/lists/AlbumRow'
+import SearchModal from '~/components/lists/SearchModal'
 export default {
   name: 'OneListPage',
   components: { SearchModal, AlbumRow },

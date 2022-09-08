@@ -46,9 +46,9 @@
 
 <script>
 import axios from 'axios'
-import ListShort from '~/components/lists/listshort'
+import ListShort from '~/components/lists/ListShort'
 import LoadingIndicator from '~/components/utils/loading'
-import AddListModal from '~/components/lists/addlistmodal'
+import AddListModal from '~/components/lists/AddListModal'
 export default {
   name: 'ListPage',
   components: { AddListModal, LoadingIndicator, ListShort },
