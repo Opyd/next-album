@@ -126,8 +126,7 @@
 
 <script>
 import axios from 'axios'
-// import { mapMutations } from 'vuex'
-import PopupModal from '~/components/utils/Popup'
+import PopupModal from '~/components/utils/popup'
 
 export default {
   name: 'RegisterPage',

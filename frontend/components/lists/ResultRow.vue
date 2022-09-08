@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex w-full justify-center h-24 bg-black shadow-2xl rounded-md bg-opacity-50 mb-1"
+    class="flex w-full justify-center h-24 bg-black shadow-2xl text-white rounded-md bg-opacity-70 mb-1"
   >
     <div class="w-1/5 flex justify-center items-center">
       <transition name="fade">
@@ -37,33 +37,32 @@
     </div>
     <div class="w-1/5 flex items-center">
       <p>
-        {{ author.length < 50 ? author : author.substring(0, 50) + '...' }}
+        {{ author.length < 40 ? author : author.substring(0, 50) + '...' }}
       </p>
     </div>
     <div class="w-1/5 flex items-center justify-center text-center">
       <p>
-        {{ title.length < 50 ? title : title.substring(0, 50) + '...' }}
+        {{ title.length < 40 ? title : title.substring(0, 50) + '...' }}
       </p>
     </div>
     <div class="w-1/5 flex items-center justify-center">
       <p>{{ releaseDate }}</p>
     </div>
     <div class="w-1/5 flex items-center justify-center">
-      <a :href="'https://musicbrainz.org/release/' + id" target="_blank">
-        <font-awesome-icon icon="fa-solid fa-circle-info"
-      /></a>
-      <font-awesome-icon
-        icon="fa-solid fa-xmark"
-        class="text-red-500 cursor-pointer pl-5"
-        @click="$emit('delAlbum', id)"
-      />
+      <button
+        class="px-5 py-1 bg-green-500 hover:bg-green-700 rounded-md transition"
+        @click="addToList"
+      >
+        <p>Add to</p>
+        <p>list</p>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AlbumRow',
+  name: 'ResultRow',
   components: {},
   props: {
     title: String,
@@ -80,6 +79,9 @@ export default {
   methods: {
     onImgLoaded() {
       this.imgLoaded = true
+    },
+    addToList() {
+      this.$emit('addAlbum', this.id)
     },
   },
 }

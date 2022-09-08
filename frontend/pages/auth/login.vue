@@ -75,7 +75,6 @@
 </template>
 
 <script>
-import PopupModal from '~/components/utils/Popup'
 export default {
   name: 'LoginPage',
   components: {},

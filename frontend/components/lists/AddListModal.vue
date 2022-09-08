@@ -58,7 +58,6 @@
 
 <script>
 import axios from 'axios'
-import PopupModal from '~/components/utils/Popup'
 export default {
   name: 'AddListModal',
   components: {},

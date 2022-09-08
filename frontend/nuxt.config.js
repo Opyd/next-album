@@ -46,7 +46,13 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/auth-next',
-    'vue-toastification/nuxt',
+    [
+      'vue-toastification/nuxt',
+      {
+        timeout: 2000,
+        maxToasts: 2,
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
