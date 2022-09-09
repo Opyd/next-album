@@ -49,7 +49,7 @@
         <input
           value="Add"
           type="submit"
-          class="text-white w-1/3 bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          class="text-white w-1/3 cursor-pointer bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
         />
       </div>
     </div>
@@ -82,7 +82,7 @@ export default {
   methods: {
     async createList() {
       const options = {
-        url: 'http://localhost:3100/v1/lists',
+        url: '/lists',
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -95,7 +95,7 @@ export default {
         },
       }
       try {
-        const res = await axios(options)
+        const res = await this.$axios(options)
         console.log(res.data)
         this.$emit('list', res.data)
         this.$emit('show', false)

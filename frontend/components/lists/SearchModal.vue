@@ -18,6 +18,9 @@
       />
     </div>
     <div class="flex flex-wrap w-full border-t mt-3 pt-3">
+      <p v-if="noResults" class="m-auto text-white text-2xl font-extrabold">
+        No matches!
+      </p>
       <ResultRow
         v-for="album in currentAlbums"
         :id="album.id"
@@ -52,6 +55,7 @@ export default {
       query: '',
       currentAlbums: [],
       offset: 0,
+      noResults: false,
     }
   },
   watch: {
@@ -86,6 +90,11 @@ export default {
             },
           }
         )
+        if (res.data.releases.length === 0) {
+          this.noResults = true
+        } else {
+          this.noResults = false
+        }
         return res.data.releases
       } catch (e) {
         this.$toast.error('Error occurred')

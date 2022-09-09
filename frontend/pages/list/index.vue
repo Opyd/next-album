@@ -17,7 +17,7 @@
           ></font-awesome-icon>
         </button>
       </div>
-      <div v-if="lists.length === 0">
+      <div v-if="lists.length === 0 && reqFinished !== true">
         <loading-indicator />
       </div>
 
@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import ListShort from '~/components/lists/ListShort'
 import LoadingIndicator from '~/components/utils/loading'
 import AddListModal from '~/components/lists/AddListModal'
@@ -66,7 +65,7 @@ export default {
   methods: {
     async getUsersLists() {
       try {
-        const response = await axios.get('http://localhost:3100/v1/lists', {
+        const response = await this.$axios.get('lists', {
           headers: {
             Authorization: `${this.$auth.strategy.token.get()}`,
           },

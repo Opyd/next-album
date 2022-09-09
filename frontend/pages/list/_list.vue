@@ -134,14 +134,11 @@ export default {
   methods: {
     async getList() {
       try {
-        const res = await axios.get(
-          `http://localhost:3100/v1/lists/${this.$route.params.list}`,
-          {
-            headers: {
-              Authorization: `${this.$auth.strategy.token.get()}`,
-            },
-          }
-        )
+        const res = await this.$axios.get(`lists/${this.$route.params.list}`, {
+          headers: {
+            Authorization: `${this.$auth.strategy.token.get()}`,
+          },
+        })
         this.list = res.data
 
         this.loadAllAlbums()
@@ -177,8 +174,8 @@ export default {
     },
     async delAlbum(value) {
       try {
-        const res = await axios.delete(
-          `http://localhost:3100/v1/lists/${this.list._id}/${value}`,
+        const res = await this.$axios.delete(
+          `lists/${this.list._id}/${value}`,
           {
             headers: {
               Accept: 'application/json',
@@ -200,8 +197,8 @@ export default {
       this.albumDetails.push(value)
       this.list.albums.push(value.id)
       try {
-        await axios.patch(
-          `http://localhost:3100/v1/lists/${this.list._id}`,
+        await this.$axios.patch(
+          `lists/${this.list._id}`,
           {
             albums: this.list.albums,
           },

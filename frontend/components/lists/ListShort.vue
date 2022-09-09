@@ -65,14 +65,11 @@ export default {
   methods: {
     removeList() {
       try {
-        const res = axios.delete(
-          `http://localhost:3100/v1/lists/${this.list._id}`,
-          {
-            headers: {
-              Authorization: this.$auth.strategy.token.get(),
-            },
-          }
-        )
+        const res = this.$axios.delete(`lists/${this.list._id}`, {
+          headers: {
+            Authorization: this.$auth.strategy.token.get(),
+          },
+        })
         console.log(res.data)
         this.$emit('removeList', this.list._id)
       } catch (e) {

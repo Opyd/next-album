@@ -125,12 +125,11 @@
 </template>
 
 <script>
-import axios from 'axios'
 import PopupModal from '~/components/utils/Popup'
 
 export default {
   name: 'RegisterPage',
-  components: [PopupModal],
+  components: { PopupModal },
 
   data() {
     return {
@@ -158,7 +157,7 @@ export default {
       if (!this.arePasswordsSame) {
       }
       const options = {
-        url: 'http://localhost:3100/auth/signup',
+        url: 'auth/signup',
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -171,7 +170,7 @@ export default {
         },
       }
       try {
-        const response = await axios(options)
+        const response = await this.$axios(options)
         if (response.status === 201) {
           this.success = true
           // eslint-disable-next-line camelcase
