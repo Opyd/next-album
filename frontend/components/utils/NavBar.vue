@@ -114,7 +114,7 @@
     >
       <div
         v-if="mobileMenu"
-        class="origin-top-right w-96 rounded-lg mt-2 md:hidden absolute right-0 shadow-2xl text-sm overflow-hidden border z-20"
+        class="origin-top-right w-3/4 rounded-lg mt-2 md:hidden absolute right-0 shadow-2xl text-sm overflow-hidden border z-20"
       >
         <div
           class="bg-white shadow-xs"
