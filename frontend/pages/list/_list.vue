@@ -145,9 +145,7 @@ export default {
         this.$toast.info(
           `Loading ${this.list.albums.length} albums from musicbrainz...`
         )
-      } catch (e) {
-        console.log(e)
-      }
+      } catch (e) {}
     },
     async getAlbumData(mbid) {
       try {
@@ -161,9 +159,7 @@ export default {
         )
         const data = res.data
         this.albumDetails.push(data)
-      } catch (e) {
-        console.log(e)
-      }
+      } catch (e) {}
     },
     loadAllAlbums() {
       this.list.albums.forEach((mbid, i) => {
@@ -189,9 +185,7 @@ export default {
           )
           this.$toast.success('Sucessfully deleted!')
         }
-      } catch (e) {
-        console.log(e)
-      }
+      } catch (e) {}
     },
     async addAlbum(value) {
       this.albumDetails.push(value)

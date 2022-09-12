@@ -100,7 +100,6 @@ export default {
             password: this.password,
           },
         })
-        console.log(response)
         this.success = true
         this.$toast.success('Welcome back!')
         setTimeout(() => {
@@ -109,7 +108,6 @@ export default {
           })
         }, 1000)
       } catch (err) {
-        console.log(err)
         this.$toast.error('Bad credentials')
         this.reset()
       }

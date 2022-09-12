@@ -71,7 +71,6 @@ export default {
           },
         })
         this.lists = response.data
-        console.log(response.data)
         this.reqFinished = true
       } catch (e) {
         console.log(e)

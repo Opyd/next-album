@@ -40,7 +40,7 @@
         {{ author.length < 50 ? author : author.substring(0, 50) + '...' }}
       </p>
     </div>
-    <div class="w-1/5 flex items-center justify-center text-center">
+    <div class="w-1/5 flex sm:text-sm items-center justify-center text-center">
       <p>
         {{ title.length < 50 ? title : title.substring(0, 50) + '...' }}
       </p>

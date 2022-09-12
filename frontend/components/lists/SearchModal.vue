@@ -62,9 +62,7 @@ export default {
     async query(newVal) {
       try {
         this.currentAlbums = await this.getAlbum(newVal, 0)
-      } catch (e) {
-        console.error(e)
-      }
+      } catch (e) {}
     },
   },
   methods: {

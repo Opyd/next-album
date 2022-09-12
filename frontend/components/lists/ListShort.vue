@@ -70,11 +70,8 @@ export default {
             Authorization: this.$auth.strategy.token.get(),
           },
         })
-        console.log(res.data)
         this.$emit('removeList', this.list._id)
-      } catch (e) {
-        console.log(e)
-      }
+      } catch (e) {}
     },
   },
 }

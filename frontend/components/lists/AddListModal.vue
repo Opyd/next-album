@@ -57,7 +57,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'AddListModal',
   components: {},
@@ -96,11 +95,9 @@ export default {
       }
       try {
         const res = await this.$axios(options)
-        console.log(res.data)
         this.$emit('list', res.data)
         this.$emit('show', false)
       } catch (e) {
-        console.log(e)
         this.errorMsg = e
         window.location.reload()
         this.$toast.error('Something went wrong')

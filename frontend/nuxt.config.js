@@ -3,7 +3,7 @@ const development = process.env.NODE_ENV !== 'production'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'frontend',
+    title: 'Next Album',
     htmlAttrs: {
       lang: 'en',
     },
