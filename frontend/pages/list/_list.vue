@@ -11,6 +11,15 @@
     >
       <div class="flex md:w-4/5 flex-wrap sm:w-full">
         <div class="flex bg-white rounded-md flex-wrap p-2 md:w-1/3 sm:w-full">
+          <div class="w-full flex justify-end items-center">
+            <label
+              v-tooltip="'Set this if you finished this list'"
+              class="switch"
+            >
+              <input v-model="finished" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
           <div class="w-full flex justify-center items-center p-2">
             <font-awesome-icon icon="fa-solid fa-list" class="text-4xl" />
           </div>
@@ -21,7 +30,7 @@
             <span
               v-for="tag in list.tags"
               :key="tag"
-              class="text-sm border-2 border-pink-100 rounded px-2"
+              class="text-sm border-2 border-pink-100 rounded mx-1 px-1"
               >{{ tag }}</span
             >
           </div>
@@ -111,6 +120,7 @@ export default {
       list: {},
       albumDetails: [],
       searching: false,
+      finished: false,
     }
   },
   computed: {
@@ -122,9 +132,21 @@ export default {
     },
   },
   watch: {
-    albumDetails() {
-      if (this.list.albums.length === this.albumDetails.length) {
-        this.$toast.success('All loaded', { timeout: 2000 })
+    async finished(newVal) {
+      try {
+        await this.$axios.patch(
+          `/lists/${this.$route.params.list}`,
+          {
+            finished: newVal,
+          },
+          {
+            headers: {
+              Authorization: `${this.$auth.strategy.token.get()}`,
+            },
+          }
+        )
+      } catch (e) {
+        this.$toast.error('Something went wrong')
       }
     },
   },
@@ -140,7 +162,7 @@ export default {
           },
         })
         this.list = res.data
-
+        this.finished = this.list.finished
         this.loadAllAlbums()
         this.$toast.info(
           `Loading ${this.list.albums.length} albums from musicbrainz...`
@@ -231,5 +253,58 @@ export default {
 .unblur-bg {
   transition: ease-in 300ms;
   filter: none;
+}
+/* From uiverse.io by @adamgiebl */
+/* The switch - the box around the slider */
+.switch {
+  font-size: 10px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 20px;
+  left: 0.3em;
+  bottom: 0.3em;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: rgba(16, 185, 129);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px rgba(16, 185, 129);
+}
+
+input:checked + .slider:before {
+  transform: translateX(1.5em);
 }
 </style>

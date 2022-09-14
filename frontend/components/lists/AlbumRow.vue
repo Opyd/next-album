@@ -46,7 +46,7 @@
       </p>
     </div>
     <div class="w-1/5 flex items-center justify-center">
-      <p>{{ releaseDate }}</p>
+      <p>{{ releaseDate === '' ? 'No data' : releaseDate }}</p>
     </div>
     <div class="w-1/5 flex items-center justify-center">
       <a :href="'https://musicbrainz.org/release/' + id" target="_blank">

@@ -1,6 +1,6 @@
 <template>
   <!-- Navbar goes here -->
-  <nav class="bg-white shadow-lg rounded-b-lg">
+  <nav class="bg-white shadow-lg rounded-b-lg sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
         <div class="flex space-x-7">
@@ -40,15 +40,6 @@
               to="/list"
               class="py-4 px-1 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
               >Lists</nuxt-link
-            >
-            <font-awesome-icon
-              icon="fa-solid fa-magnifying-glass"
-              class="text-gray-600 pl-2"
-            />
-            <nuxt-link
-              to="/search"
-              class="py-4 px-1 text-gray-500 font-semibold hover:text-green-500 transition duration-300"
-              >Search</nuxt-link
             >
           </div>
         </div>
@@ -173,19 +164,6 @@
                 <span> Your Lists </span>
               </nuxt-link>
             </div>
-
-            <nuxt-link
-              to="/search"
-              class="p-4 flex items-center space-x-2 hover:font-semibold hover:text-green-500 transition duration-300"
-              @click.native="mobileMenu = false"
-            >
-              <font-awesome-icon
-                icon="fa-solid fa-magnifying-glass"
-                :style="{ fontSize: '20px' }"
-                class="text-black"
-              />
-              <span class=""> Search </span>
-            </nuxt-link>
           </div>
           <div class="border-t border-gray-100"></div>
           <div v-if="!isLogged">

@@ -26,10 +26,14 @@ export default {
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css',
     'vue-toastification/dist/index.css',
+    '~/assets/tooltip.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/fontawesome.js', ssr: true }],
+  plugins: [
+    { src: '~/plugins/fontawesome.js', ssr: true },
+    { src: '~/plugins/tooltip.js', ssr: true, mode: 'client' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -40,6 +44,7 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/svg',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
