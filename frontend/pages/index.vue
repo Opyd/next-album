@@ -2,21 +2,23 @@
   <div class="flex flex-wrap justify-center w-full">
     <div class="flex flex-wrap justify-center w-full mt-16 text-white">
       <div
-        class="flex flex-wrap w-1/2 bg-black bg-opacity-50 rounded-md shadow-lg sm:p-5 md:p-20"
+        class="flex flex-wrap w-1/2 bg-black bg-opacity-50 rounded-md shadow-lg p-5 sm:p-5 md:p-20"
       >
         <div class="md:w-1/2 sm:w-full">
-          <p class="w-full sm:text-2xl md:text-4xl">Discover music...</p>
-          <p class="w-full sm:text-4xl md:text-6xl font-extrabold">
+          <p class="w-full sm:text-2xl md:text-4xl text-2xl">
+            Discover music...
+          </p>
+          <p class="w-full sm:text-4xl md:text-6xl text-4xl font-extrabold">
             easier<span class="animate-pulse text-green-500">.</span>
           </p>
         </div>
-        <div class="sm:mt-5 md:w-1/2">
+        <div class="sm:mt-5 md:w-1/2 md:mt-0 mt-5">
           <img src="~/assets/index/music.svg" />
         </div>
       </div>
     </div>
     <div class="flex w-full justify-center text-white mt-10">
-      <p class="md:text-4xl sm:text-2xl">
+      <p class="md:text-4xl sm:text-2xl text-xl text-center">
         Create new playlists and fill them with albums!
       </p>
     </div>
