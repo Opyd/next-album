@@ -1,7 +1,6 @@
 # Application for music playlists
 
-CRUD application for managing lists of music albums to check, save, etc.
-
+Full-stack application for creating and managing music playlists.
 
 ## Tech Stack
 
